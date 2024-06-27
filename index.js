@@ -54,12 +54,7 @@ async function run() {
       });
     };
 
-    // CREATE SERVICE
-    app.post('/api/v1/services', verifyToken, async (req, res) => {
-      const service = req.body;
-      const result = await serviceCollection.insertOne(service);
-      res.send(result);
-    });
+
 
     // GET ALL SERVICES
     app.get('/api/v1/services', async (req, res) => {

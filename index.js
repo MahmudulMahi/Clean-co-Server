@@ -61,7 +61,20 @@ async function run() {
       res.send(result);
     });
 
-;
+    // GET ALL SERVICES
+    app.get('/api/v1/services', async (req, res) => {
+      const cursor = serviceCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    //GET SINGLE SERVICE
+    app.get('/api/v1/services/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await serviceCollection.findOne(query);
+      res.send(result);
+    });
 
     // UPDATE SERVICE
     app.patch('/api/v1/services/:id', async (req, res) => {

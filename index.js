@@ -76,20 +76,6 @@ async function run() {
       res.send(result);
     });
 
-    // UPDATE SERVICE
-    app.patch('/api/v1/services/:id', async (req, res) => {
-      const id = req.params.id;
-      const filter = { _id: new ObjectId(id) };
-      const updatedService = req.body;
-
-      const updateDoc = {
-        $set: {
-          ...updatedService,
-        },
-      };
-      const result = await serviceCollection.updateOne(filter, updateDoc);
-      res.send(result);
-    });
 
     // DELETE SERVICE
     app.delete('api/v1/services/:id', async (req, res) => {

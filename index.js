@@ -111,6 +111,8 @@ async function run() {
     app.get('/api/v1/bookings', verifyToken, async (req, res) => {
       const userEmail = req.query.email;
 
+      console.log(req);
+
       if (userEmail !== req.user.email) {
         return res
           .status(403)
@@ -142,12 +144,7 @@ async function run() {
     });
 
     // DELETE BOOKING
-    app.delete('/api/v1/bookings/:id', async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: new ObjectId(id) };
-      const result = await bookingCollection.deleteOne(query);
-      res.send(result);
-    });
+
 
     app.post('/api/v1/auth/access-token', async (req, res) => {
       const user = req.body;

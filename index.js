@@ -61,7 +61,12 @@ async function run() {
       res.send(result);
     });
 
- 
+    // GET ALL SERVICES
+    app.get('/api/v1/services', async (req, res) => {
+      const cursor = serviceCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
 
     //GET SINGLE SERVICE
     app.get('/api/v1/services/:id', async (req, res) => {

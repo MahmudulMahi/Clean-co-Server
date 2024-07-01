@@ -37,6 +37,22 @@ async function run() {
     const orderCollections = client.db('clean-co').collection('orders');
     const bookingCollection = client.db('clean-co').collection('bookings');
 
+    const verifyToken = (req, res, next) => {
+      const token = req?.cookies?.token;
+      console.log({ token });
+      if (!token) {
+        return res.status(401).send({ message: 'unauthorized access' });
+      }
+
+      jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+          return res.status(401).send({ message: 'unauthorized access' });
+        }
+
+        req.user = decoded;
+        next();
+      });
+    };
 
     // CREATE SERVICE
     app.post('/api/v1/services', verifyToken, async (req, res) => {
